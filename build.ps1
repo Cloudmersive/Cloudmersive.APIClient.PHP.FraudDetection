@@ -1,13 +1,13 @@
 ﻿#Remove-Item –path ./ –recurse
 
-Invoke-WebRequest -Uri 'https://api.cloudmersive.com/cdr/docs/v1/swagger' -OutFile '.\cdr-api-swagger.json'
-(Get-Content .\cdr-api-swagger.json).replace('localhost', "api.cloudmersive.com") | Set-Content .\cdr-api-swagger.json
-(Get-Content .\cdr-api-swagger.json -Raw) -replace '"http"','"https"' | Set-Content .\cdr-api-swagger.json -Encoding UTF8
+Invoke-WebRequest -Uri 'https://api.cloudmersive.com/fraud-ai/docs/v1/swagger' -OutFile '.\fraud-api-swagger.json'
+(Get-Content .\fraud-api-swagger.json).replace('localhost', "api.cloudmersive.com") | Set-Content .\fraud-api-swagger.json
+(Get-Content .\fraud-api-swagger.json -Raw) -replace '"http"','"https"' | Set-Content .\fraud-api-swagger.json -Encoding UTF8
 
-& java -jar swagger-codegen-cli.jar generate -i .\cdr-api-swagger.json -l php -c packageconfig.json
+& java -jar swagger-codegen-cli.jar generate -i .\fraud-api-swagger.json -l php -c packageconfig.json
 #(Get-Content ./client/package.json).replace('v1', '1.0.1') | Set-Content ./client/package.json
-Copy-Item ./cloudmersive_cdr_api_client/* -Destination . -Recurse -Force
-Remove-Item –path ./cloudmersive_cdr_api_client –recurse
+Copy-Item ./cloudmersive_fraud_detection_api_client/* -Destination . -Recurse -Force
+Remove-Item –path ./cloudmersive_fraud_detection_api_client –recurse
 
 # Bug fix
 
